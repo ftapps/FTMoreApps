@@ -5,6 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/FTMoreApps.svg?style=flat)](http://cocoapods.org/pods/FTMoreApps)
 [![Platform](https://img.shields.io/cocoapods/p/FTMoreApps.svg?style=flat)](http://cocoapods.org/pods/FTMoreApps)
 
+
+## Description
+
+FTMoreApps is an iOS library created to present a view controller inside your application to show your developer page of apps. It is very similar to the App Store visual.
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
