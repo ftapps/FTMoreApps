@@ -25,12 +25,12 @@ Just #import the FTMoreApps.h header, and call the one of the methods described 
                                      descriptionType:FTDescriptionTypeScreenshots
                                           completion:nil];
 
-    /* OR
-
+    /* 
+    // OR
     [moreAppsManager presentMoreAppsInViewController:self
-                                              appIds:@[@"app_id_1", @"app_id_2", ...]
+                                              appIds:@[@"app_id_1", @"app_id_2", ...] // The ids of the apps you want to show
                                      descriptionType:FTDescriptionTypeText
-                                        completion:nil];
+                                          completion:nil];
     */
 
     moreAppsManager.showActionButton = NO;
