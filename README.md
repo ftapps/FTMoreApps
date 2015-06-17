@@ -64,7 +64,7 @@ it, simply add the following line to your Podfile:
 pod "FTMoreApps"
 ```
 
-Or, simply copy all the files into your project
+Or, simply copy all the files into your project.
 
 ## Author
 
