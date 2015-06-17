@@ -53,6 +53,8 @@ Just #import the FTMoreApps.h header, and call the one of the methods described 
 
 ## Requirements
 
+This library requires iOS 8 and ARC.
+
 ## Installation
 
 FTMoreApps is available through [CocoaPods](http://cocoapods.org). To install
@@ -61,6 +63,8 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "FTMoreApps"
 ```
+
+Or, simply copy all the files into your project
 
 ## Author
 
