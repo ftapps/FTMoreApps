@@ -9,6 +9,40 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+Just #import the FTMoreApps.h header, and call the one of the methods described below to present the view controller.
+
+```objective-c
+#import <FTMoreApps/FTMoreApps.h>
+
+...
+
+- (IBAction)buttonPressed:(id)sender {
+
+FTMoreApps *moreAppsManager = [FTMoreApps sharedManager];
+
+[moreAppsManager presentMoreAppsInViewController:self
+developerId:@"318226300"
+descriptionType:FTDescriptionTypeScreenshots
+completion:nil];
+
+moreAppsManager.showActionButton = NO;
+moreAppsManager.showPrice = NO;
+moreAppsManager.title = NSLocalizedString(@"More apps", nil);
+
+moreAppsManager.willDismissBlock = ^{
+NSLog(@"will dismiss more apps view controller");
+};
+
+moreAppsManager.didDismissBlock = ^{
+NSLog(@"did dismiss more apps view controller");
+};
+
+moreAppsManager.didSelectAppBlock = ^(NSString *appId){
+NSLog(@"did select app id: %@", appId);
+};
+}
+```
+
 ## Requirements
 
 ## Installation
