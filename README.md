@@ -21,7 +21,7 @@ Just #import the FTMoreApps.h header, and call the one of the methods described 
     FTMoreApps *moreAppsManager = [FTMoreApps sharedManager];
 
     [moreAppsManager presentMoreAppsInViewController:self
-                                         developerId:@"318226300"
+                                         developerId:@"318226300" // You can find your developer id in your iTunes link of your apps: https://itunes.apple.com/us/artist/felipe-tumonis/id318226300?mt=8
                                      descriptionType:FTDescriptionTypeScreenshots
                                           completion:nil];
 
