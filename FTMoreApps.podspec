@@ -10,18 +10,18 @@
 Pod::Spec.new do |s|
   s.name             = "FTMoreApps"
   s.version          = "0.1.0"
-  s.summary          = "A short description of FTMoreApps."
+  s.summary          = "FTMoreApps presents a view controller similar to the App Store to show your apps."
   s.description      = <<-DESC
-                       An optional longer description of FTMoreApps
+                       FTMoreApps presents a view controller similar to the App Store to show your apps. You can setup it with your developer ID and show all your apps ou define an array of app ids to present."
 
                        * Markdown format.
                        * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/FTMoreApps"
+  s.homepage         = "https://github.com/ftapps/FTMoreApps"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Felipe Tumonis" => "ftumonis@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/FTMoreApps.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/ftapps/FTMoreApps.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
