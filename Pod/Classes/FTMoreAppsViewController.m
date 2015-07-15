@@ -83,10 +83,11 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _tableView.translatesAutoresizingMaskIntoConstraints = YES;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 0);
-    _tableView.layoutMargins = _tableView.separatorInset;
-//    [_tableView registerNib:[UINib nibWithNibName:@"FTMoreAppsCell" bundle:[NSBundle bundleForClass:[self class]]] forCellReuseIdentifier:@"AppCell"];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        _tableView.layoutMargins = _tableView.separatorInset;
+    }
 
     _refControl = [[UIRefreshControl alloc] init];
     [_refControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -97,17 +98,7 @@
     
     _tableView.contentOffset = CGPointMake(0, -_refControl.frame.size.height);
     [self generateDatasource];
-
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(handleDidChangeStatusBarOrientationNotification:)
-//                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
-//                                               object:nil];
 }
-
-//- (void)dealloc
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -201,10 +192,15 @@
     SKStoreProductViewController *productVC = [[SKStoreProductViewController alloc] init];
     
     productVC.delegate = self;
-    [productVC loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier : appId,
-                                           SKStoreProductParameterAffiliateToken : @"10lwC5",
-                                           SKStoreProductParameterCampaignToken : @"More Apps Screen"}
+    NSMutableDictionary *parametersDict = [NSMutableDictionary dictionaryWithDictionary:@{SKStoreProductParameterITunesItemIdentifier : appId}];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        [parametersDict setObject:SKStoreProductParameterAffiliateToken forKey:@"10lwC5"];
+        [parametersDict setObject:SKStoreProductParameterCampaignToken forKey:@"More Apps Screen"];
+    }
+
+    [productVC loadProductWithParameters:parametersDict
                          completionBlock:nil];
+
     
     [self presentViewController:productVC animated:YES completion:^{
         if ([_delegate respondsToSelector:@selector(moreAppsViewController:didSelectApp:)]) {
@@ -245,16 +241,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //(UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) || self.presentingViewController.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular)
-    
     NSNumber *cellHeight = _heightsDict[@(indexPath.row)];
     if (cellHeight && self.view.frame.size.width < self.view.frame.size.height) {
         return cellHeight.floatValue;
     }
-    
-//    if (_descriptionType == FTDescriptionTypeText) {
-//        return 84.0f + 125.0f;
-//    }
     
     return 84.0f;
 }
@@ -283,7 +273,9 @@
 
     [cell showButton:_showActionButton];
 
-    if (_descriptionType == FTDescriptionTypeNone || _descriptionType == FTDescriptionTypeText || (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular)) {
+    BOOL horizontalSizeClassRegular = NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 ? self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular : self.view.frame.size.width > self.view.frame.size.height;
+    
+    if (_descriptionType == FTDescriptionTypeNone || _descriptionType == FTDescriptionTypeText || (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && !horizontalSizeClassRegular)) {
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         if (_descriptionType == FTDescriptionTypeText) {
             [cell setTextDescription:appDict[@"description"]];
@@ -366,17 +358,6 @@
     [self showStoreForAppId:appDict[@"trackId"]];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark - SKStoreProductViewControllerDelegate
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
@@ -399,7 +380,6 @@
 {
     void (^refreshTable)() = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-//            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
             if (self.view.frame.size.height > self.view.frame.size.width) {
                 [_tableView reloadData];
             }
@@ -424,13 +404,16 @@
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [self handleSizeChange:self.view.frame.size];
-
-    NSLog(@"will transition to trait collection: %@", newCollection);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [self handleSizeChange:size];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self handleSizeChange:CGSizeMake(self.view.frame.size.height, self.view.frame.size.width)];
 }
 
 - (void)handleSizeChange:(CGSize)size
