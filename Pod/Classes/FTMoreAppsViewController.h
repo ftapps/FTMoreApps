@@ -30,7 +30,7 @@ FTDescriptionType;
 
 @interface FTMoreAppsViewController : UIViewController
 
-@property (nonatomic, strong) id <FTMoreAppsViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <FTMoreAppsViewControllerDelegate> delegate;
 @property (nonatomic) BOOL showPrice;
 @property (nonatomic) BOOL showActionButton;
 

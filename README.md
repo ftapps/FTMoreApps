@@ -58,7 +58,7 @@ Just #import the FTMoreApps.h header, and call the one of the methods described 
 
 ## Requirements
 
-This library requires iOS 8 and ARC.
+This library requires iOS 7 and ARC.
 
 ## Installation
 
