@@ -43,7 +43,7 @@
 @property (strong, nonatomic) UILabel *labelDescription;
 @property (strong, nonatomic) NSLayoutConstraint *labelDescriptionHeightConstraint;
 
-@property (assign, nonatomic) id <FTMoreAppsCellDelegate> delegate;
+@property (weak, nonatomic) id <FTMoreAppsCellDelegate> delegate;
 
 - (void)setNumberOfStars:(CGFloat)stars;
 - (void)showButton:(BOOL)show;

@@ -839,8 +839,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         CGRect rect = [self.contentView convertRect:_imageViewScreenshotPortrait1.frame fromView:_imageViewScreenshotPortrait1.superview];
         
-        NSLog(@"set portrait tag: %d", (int)self.tag);
-
         if ([self.delegate respondsToSelector:@selector(moreAppsCell:heightCalculated:tag:)]) {
             [self.delegate moreAppsCell:self heightCalculated:rect.origin.y + rect.size.height + SPACE_BETWEEN_CELLS tag:self.tag];
         }
@@ -870,7 +868,6 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
         CGRect rect = [self.contentView convertRect:_imageViewScreenshotLandscape.frame fromView:_imageViewScreenshotLandscape.superview];
-        NSLog(@"set landscape tag: %d", (int)self.tag);
         if ([self.delegate respondsToSelector:@selector(moreAppsCell:heightCalculated:tag:)]) {
             [self.delegate moreAppsCell:self heightCalculated:rect.origin.y + rect.size.height + SPACE_BETWEEN_CELLS tag:self.tag];
         }
