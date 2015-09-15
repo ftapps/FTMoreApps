@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FTMoreApps"
-  s.version          = "0.1.4"
+  s.version          = "0.1.5"
   s.summary          = "FTMoreApps presents a view controller similar to the App Store to show your apps."
   s.description      = <<-DESC
                        FTMoreApps is an iOS library created to present a view controller inside your application to show your developer page of apps. It is very similar to the App Store visual.

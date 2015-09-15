@@ -194,8 +194,8 @@
     productVC.delegate = self;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionaryWithDictionary:@{SKStoreProductParameterITunesItemIdentifier : appId}];
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-        [parametersDict setObject:SKStoreProductParameterAffiliateToken forKey:@"10lwC5"];
-        [parametersDict setObject:SKStoreProductParameterCampaignToken forKey:@"More Apps Screen"];
+        [parametersDict setObject:@"10lwC5" forKey:SKStoreProductParameterAffiliateToken];
+        [parametersDict setObject:@"More Apps Screen" forKey:SKStoreProductParameterCampaignToken];
     }
 
     [productVC loadProductWithParameters:parametersDict
